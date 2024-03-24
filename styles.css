@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#moneyDisplay {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#clickButton {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+#upgradeStore {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+#statsDisplay {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+}
