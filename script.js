@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { name: "Miner 2", productionPerMinute: 5, baseCost: 5000, costMultiplier: 2.5, owned: 0, cost: 5000 },
             // Ajoutez d'autres mineurs au besoin
         ],
-        minerInterval: 60000, // 1 minute en millisecondes
+        minerInterval: 1000, // 1 minute en millisecondes
         minerProduction: 0, // Production totale de tous les mineurs
         minerEnabled: false,
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const button = document.createElement('button');
         button.textContent = `${miner.name} - Cost: $${miner.cost}`;
 
-       const minerInfos = document.createElement('p');
+        const minerInfos = document.createElement('p');
         minerInfos.textContent = `Produce $${miner.productionPerMinute}/min \n Owned: ${miner.owned}`;
         minerInfos.style.display = 'block'; // Cachez les informations initialement
         buttonContainer.appendChild(button);
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 miner.cost = (miner.owned ? miner.baseCost * (miner.costMultiplier * miner.owned) : miner.baseCost).toFixed(2);
                 data.minerEnabled = true;
                 saveDataToLocal();
-                startMining(); // Démarre la production automatique si nécessaire
+                if (!data.minerEnabled) startMining();
                 button.textContent = `${miner.name} - Cost: $${miner.cost}`;
                 minerInfos.textContent = `Produce $${miner.productionPerMinute} \n Owned: ${miner.owned}`;
                 logEvent('Player bought a miner');
@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function startMining() {
         if (data.minerEnabled) {
             setInterval(function () {
+                if (!data.minerEnabled) return;
                 calculateMinerProduction();
                 updateStatsDisplay()
                 data.money += data.minerProduction;
@@ -143,11 +144,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 dataStats.minersProduced += data.minerProduction;
                 logEvent('Money produced by miners');
             }, data.minerInterval);
+        } else {
+            clearInterval()
         }
     }
 
     const clickButton = document.getElementById('clickButton');
-    const clickButton2 = document.getElementById('clickButton2');
 
     const buyUpgradeButton = document.getElementById('buyUpgrade');
     const buyMinerButton = document.getElementById('buyMiner');
@@ -162,13 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    clickButton2.addEventListener('click', function () {
-        data.money += 10000;
-        dataStats.playerClic++;
-        dataStats.playerProduced = dataStats.playerProduced + data.productionPerClick;
-        saveDataToLocal();
-        logEvent('Player clicked to earn money 10000');
-    });
+
     buyUpgradeButton.addEventListener('click', function () {
         if (!upgradeButtonsVisible) {
             upgradeOptionsDiv.innerHTML = ''; // Effacez le contenu précédent
@@ -195,4 +191,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateStatsDisplay();
+
+
+
+
+
+    // DEV PARTS
+    const toggleMiningButton = document.getElementById('toggleMining');
+    const resetProdButton = document.getElementById('resetProd');
+    const produceDevButton = document.getElementById('produce1m');
+
+    toggleMiningButton.addEventListener('click', function () {
+        if (!data.minerEnabled) {
+            toggleMiningButton.textContent = 'Toggle Mining (True)'; 
+            data.minerEnabled = true; // Mettez à jour l'état des boutons comme visibles
+            startMining();
+        } else {
+            toggleMiningButton.textContent = 'Toggle Mining (False)'; 
+            data.minerEnabled = false; // Mettez à jour l'état des boutons comme visibles
+        }
+    });
+
+
+    produceDevButton.addEventListener('click', function () {
+        data.money += 100000;
+        dataStats.playerClic++;
+        dataStats.playerProduced = dataStats.playerProduced + data.productionPerClick;
+        saveDataToLocal();
+        logEvent('Player clicked to earn money 10000');
+    });
 });
