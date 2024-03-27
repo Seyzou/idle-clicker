@@ -27,12 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
         playerClic: 0,
         playerProduced: 0,
         minersProduced: 0,
+        clickCount: 0,
+        bestClickCount: 0
     };
     const stats = document.getElementById('stats');
     const DevStats = document.getElementById('DevStats');
 
     updateStats();
-
+    dataStats.clickCount = 0;
     const moneyDisplay = document.getElementById('moneyDisplay');
     const productionPerClickDisplay = document.getElementById('productionPerClickDisplay');
     const minerProductionDisplay = document.getElementById('minerProductionDisplay');
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem('idleGameStats', JSON.stringify(dataStats));
         updateStatsDisplay();
         updateStats();
+
     }
 
     function createUpgradeButton(upgrade) {
@@ -150,9 +153,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const clickButton = document.getElementById('clickButton');
-
     const buyUpgradeButton = document.getElementById('buyUpgrade');
     const buyMinerButton = document.getElementById('buyMiner');
+    let clickTimeout; // Variable pour stocker le timeout
 
     clickButton.addEventListener('click', function () {
         data.money += data.productionPerClick;
@@ -162,7 +165,43 @@ document.addEventListener("DOMContentLoaded", function () {
         logEvent('Player clicked to earn money');
     });
 
+    clickButton.addEventListener('mousedown', function () {
+        dataStats.clickCount++; // Incrémenter le nombre de clics lorsque le bouton est enfoncé
+        if (dataStats.bestClickCount < dataStats.clickCount) {
+            dataStats.bestClickCount = dataStats.clickCount;
+        }
+        updateButtonColor(); // Mettre à jour la couleur du bouton
+        clearTimeout(clickTimeout); // Réinitialiser le timeout lorsque le bouton est enfoncé
+    });
 
+    clickButton.addEventListener('mouseup', function () {
+        // Définir un timeout pour réinitialiser clickCount après 5 secondes
+        clickTimeout = setTimeout(async function () {
+            dataStats.clickCount = 0; // Réinitialiser le nombre de clics après 5 secondes
+            await saveDataToLocal();
+            updateButtonColor(); // Mettre à jour la couleur du bouton
+        }, 5000); // 5000 millisecondes (5 secondes)
+    });
+
+    async function updateButtonColor() {
+        if (dataStats.clickCount >= 100) {
+            clickButton.classList.remove('red');
+            clickButton.classList.add("flames")
+        } else if (dataStats.clickCount >= 50) {
+            clickButton.classList.remove('orange');
+            clickButton.classList.add("red")
+        } else if (dataStats.clickCount >= 25) {
+            clickButton.classList.remove('yellow');
+            clickButton.classList.add("orange")
+        } else if (dataStats.clickCount >= 10) { // Si le nombre de clics est supérieur ou égal à 5
+            clickButton.classList.add("yellow")
+        } else {
+            clickButton.classList.remove("flames")
+            clickButton.classList.remove('orange');
+            clickButton.classList.remove('yellow');
+            clickButton.classList.remove('red'); // Retirer la classe 'red' pour revenir à la couleur initiale du bouton
+        }
+    }
 
 
     buyUpgradeButton.addEventListener('click', function () {
@@ -203,11 +242,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     toggleMiningButton.addEventListener('click', function () {
         if (!data.minerEnabled) {
-            toggleMiningButton.textContent = 'Toggle Mining (True)'; 
+            toggleMiningButton.textContent = 'Toggle Mining (True)';
             data.minerEnabled = true; // Mettez à jour l'état des boutons comme visibles
             startMining();
         } else {
-            toggleMiningButton.textContent = 'Toggle Mining (False)'; 
+            toggleMiningButton.textContent = 'Toggle Mining (False)';
             data.minerEnabled = false; // Mettez à jour l'état des boutons comme visibles
         }
     });

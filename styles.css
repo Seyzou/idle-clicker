@@ -9,21 +9,74 @@ body {
 }
 
 #clickButton {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
+    width: 100px;
+    /* Largeur */
+    height: 100px;
+    /* Hauteur */
+    border-radius: 50%;
+    /* Rendre le bouton rond */
+    font-size: 20px;
+    /* Taille de la police */
+    background-color: #4CAF50;
+    /* Couleur de fond */
+    color: white;
+    /* Couleur du texte */
+    border: none;
+    /* Supprimer les bordures */
+    cursor: pointer;
+    /* Curseur de la souris */
+    outline: none;
+    /* Supprimer la mise en évidence au focus */
+    margin: 30px;
 }
 
-#upgradeStore {
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
+#clickButton:hover {
+    background-color: #45a049;
+    /* Couleur de fond au survol (vert plus foncé) */
 }
 
-#statsDisplay {
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
+#clickButton.flames {
+    background-color: #ff5733;
+    animation: flame 2s infinite alternate-reverse;
 }
+
+/* Effet flamme */
+@keyframes flame {
+    0% {
+        box-shadow: 0 0 10px 0 #ff5733;
+    }
+
+    100% {
+        box-shadow: 0 0 20px 10px #ff5733, 0 0 40px 20px #ff6f47, 0 0 60px 30px #ff924e, 0 0 80px 40px #ffb556, 0 0 100px 50px #ffd15e;
+    }
+}
+
+#clickButton.red {
+    background-color: #f44336;
+    /* Couleur de fond rouge */
+}
+
+#clickButton.orange {
+    background-color: #f49236;
+    /* Couleur de fond orange */
+}
+
+#clickButton.yellow {
+    background-color: #f4e436;
+    /* Couleur de fond jaune */
+}
+
+
+
+
+.container {
+    display: flex; /* Utiliser Flexbox */
+    width: 100%; /* Prendre toute la largeur de la page */
+  }
+  
+  .upgradeStore, .statsDisplay {
+    flex: 1; /* Les deux divs vont prendre le même espace */
+    margin: 10px; /* Marge autour des divs */
+    padding: 20px; /* Rembourrage à l'intérieur des divs */
+    border: 1px solid #ccc; /* Bordure pour les divs (optionnel) */
+  }
