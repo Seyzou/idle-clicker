@@ -9,18 +9,28 @@
 </head>
 
 <body>
-    <div id="statistiques">
-        <h2>Statistiques</h2>
-        <p id="moneyDisplay">Argent: $0</p>
-        <p id="productionPerClickDisplay">prod/clic:</p>
-        <p id="minerProductionDisplay">prod: $0/sec</p>
+    <div class="topBanner" id="statistiques">
+        <div class="scrollingTextContainer">
+            <p id="productionPerClickDisplay">prod/clic:</p>
+            <p id="minerProductionDisplay">$0/sec</p>
+            <p id="bestStrikeDisplay">best strike</p>
+
+        </div>
     </div>
-    <button id="clickButton">Clic</button>
+    <div class="buttonContainer">
+        <h1 id="moneyDisplay">$0</h1>
+        <button id="clickButton">
+            <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/nui2.png" alt="nui2" />
+        </button>
+        <p id="strikeDisplay">🔥</p>
+
+    </div>
+
     <div class="container">
         <div class="upgradeStore">
             <h1>Boutique</h1>
             <h2>Améliorations</h2>
-            <button id="buyUpgrade">Améliorations:</button>
+            <button id="buyUpgrade">Améliorations</button>
             <div id="upgradeOptions"></div>
             <h2>Mineurs</h2>
             <button id="buyMiner">Mineurs</button>
@@ -45,6 +55,5 @@
     </div>
 
 </body>
-
 
 </html>

@@ -3,15 +3,66 @@ body {
     text-align: center;
 }
 
-#moneyDisplay {
-    font-size: 24px;
-    margin-bottom: 20px;
+.topBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    /* Masquer tout contenu dépassant la largeur du conteneur */
 }
 
+.scrollingTextContainer {
+    display: inline-block;
+    white-space: nowrap;
+    /* Empêcher le texte de passer à la ligne */
+    animation: scrollText 20s linear infinite;
+    /* Animation de défilement */
+}
+
+.scrollingTextContainer p {
+    display: inline; /* Afficher les balises <p> en tant qu'éléments en ligne */
+    margin-right: 20px; /* Ajouter une marge entre les balises <p> */
+  }
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(200%);
+        /* Déplacer le texte en dehors de la vue */
+    }
+
+    100% {
+        transform: translateX(-200%);
+        /* Déplacer le texte jusqu'au bord gauche */
+    }
+}
+
+/* #moneyDisplay {
+    font-size: 24px;
+    margin-bottom: 20px;
+} */
+
+.buttonContainer {
+    text-align: center;
+    margin: 50px;
+}
+
+ #strikeDisplay {
+    display: none;
+    padding-bottom: 10px;
+}
+
+
+
 #clickButton {
-    width: 100px;
+    width: 200px;
     /* Largeur */
-    height: 100px;
+    height: 200px;
     /* Hauteur */
     border-radius: 50%;
     /* Rendre le bouton rond */
@@ -27,12 +78,18 @@ body {
     /* Curseur de la souris */
     outline: none;
     /* Supprimer la mise en évidence au focus */
-    margin: 30px;
+    margin: 20px;
+    transition: transform 0.2s ease;
 }
 
 #clickButton:hover {
     background-color: #45a049;
     /* Couleur de fond au survol (vert plus foncé) */
+}
+
+#clickButton:active {
+    transform: translateY(2px);
+    /* Effet de recul de 2 pixels vers le haut lorsque le bouton est cliqué */
 }
 
 #clickButton.flames {
@@ -68,15 +125,21 @@ body {
 
 
 
-
 .container {
-    display: flex; /* Utiliser Flexbox */
-    width: 100%; /* Prendre toute la largeur de la page */
-  }
-  
-  .upgradeStore, .statsDisplay {
-    flex: 1; /* Les deux divs vont prendre le même espace */
-    margin: 10px; /* Marge autour des divs */
-    padding: 20px; /* Rembourrage à l'intérieur des divs */
-    border: 1px solid #ccc; /* Bordure pour les divs (optionnel) */
-  }
+    display: flex;
+    /* Utiliser Flexbox */
+    width: 100%;
+    /* Prendre toute la largeur de la page */
+}
+
+.upgradeStore,
+.statsDisplay {
+    flex: 1;
+    /* Les deux divs vont prendre le même espace */
+    margin: 10px;
+    /* Marge autour des divs */
+    padding: 20px;
+    /* Rembourrage à l'intérieur des divs */
+    border: 1px solid #ccc;
+    /* Bordure pour les divs (optionnel) */
+}

@@ -38,13 +38,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const moneyDisplay = document.getElementById('moneyDisplay');
     const productionPerClickDisplay = document.getElementById('productionPerClickDisplay');
     const minerProductionDisplay = document.getElementById('minerProductionDisplay');
+    const strikeDiplay = document.getElementById('strikeDisplay');
+    const bestStrikeDiplay = document.getElementById('bestStrikeDisplay');
+
     const upgradeOptionsDiv = document.getElementById('upgradeOptions');
     const minerOptionsDiv = document.getElementById('minerOptions');
     startMining();
     function updateStatsDisplay() {
-        moneyDisplay.textContent = `Money: $${data.money.toFixed(2)}`;
-        productionPerClickDisplay.textContent = `Production Per Click: ${data.productionPerClick}`;
-        minerProductionDisplay.textContent = `Miner Production: $${data.minerProduction} per minute`;
+        moneyDisplay.textContent = `$${data.money.toFixed(2)}`;
+        productionPerClickDisplay.textContent = `$${data.productionPerClick}/clics`;
+        minerProductionDisplay.textContent = `Mineurs: $${data.minerProduction}/sec`;
+        bestStrikeDiplay.textContent = `Meilleur strike ${dataStats.bestClickCount} 🔥`;
+
+        strikeDiplay.textContent = `🔥 ${dataStats.clickCount} 🔥`;
     }
 
     function updateStats() {
@@ -178,9 +184,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Définir un timeout pour réinitialiser clickCount après 5 secondes
         clickTimeout = setTimeout(async function () {
             dataStats.clickCount = 0; // Réinitialiser le nombre de clics après 5 secondes
+            strikeDiplay.style.display = "none";
+
             await saveDataToLocal();
             updateButtonColor(); // Mettre à jour la couleur du bouton
-        }, 5000); // 5000 millisecondes (5 secondes)
+        }, 2000); // 2000 millisecondes (2 secondes)
     });
 
     async function updateButtonColor() {
@@ -194,6 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
             clickButton.classList.remove('yellow');
             clickButton.classList.add("orange")
         } else if (dataStats.clickCount >= 10) { // Si le nombre de clics est supérieur ou égal à 5
+            strikeDiplay.style.display = "block";
+
             clickButton.classList.add("yellow")
         } else {
             clickButton.classList.remove("flames")
