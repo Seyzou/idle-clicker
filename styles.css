@@ -24,6 +24,32 @@ body {
     animation: scrollText 20s linear infinite;
     /* Animation de défilement */
 }
+ 
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Styles pour les boutons de la catégorie "upgrade" */
+  #buyUpgrade {
+    background-color: #008CBA;
+  }
+  
+  /* Styles pour les boutons de la catégorie "miners" */
+  #buyMiners {
+    background-color: #f44336;
+  }
 
 .scrollingTextContainer p {
     display: inline; /* Afficher les balises <p> en tant qu'éléments en ligne */
@@ -82,6 +108,7 @@ body {
     transition: transform 0.2s ease;
 }
 
+
 #clickButton:hover {
     background-color: #45a049;
     /* Couleur de fond au survol (vert plus foncé) */
@@ -93,8 +120,12 @@ body {
 }
 
 #clickButton.flames {
-    background-color: #ff5733;
-    animation: flame 2s infinite alternate-reverse;
+    content: '';
+    background: radial-gradient(circle, rgba(255, 165, 0, 0.8), transparent); /* Dégradé radial pour simuler la flamme */
+    border-radius: 50%;
+    z-index: -1;
+    animation: flameAnimation 2s infinite alternate;
+  
 }
 
 /* Effet flamme */
@@ -107,6 +138,39 @@ body {
         box-shadow: 0 0 20px 10px #ff5733, 0 0 40px 20px #ff6f47, 0 0 60px 30px #ff924e, 0 0 80px 40px #ffb556, 0 0 100px 50px #ffd15e;
     }
 }
+
+@keyframes flameAnimation {
+    0% {
+      opacity: 0.8;
+      transform: translateY(0) rotateZ(0deg) scale(1);
+      box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.6);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-10px) rotateZ(20deg) scale(1.1);
+      box-shadow: 0 0 20px 10px rgba(255, 165, 0, 0.8);
+    }
+    100% {
+      opacity: 0.8;
+      transform: translateY(0) rotateZ(0deg) scale(1);
+      box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.6);
+    }
+  }
+
+  @keyframes flameDance {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1) rotateZ(5deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1) rotateZ(-5deg);
+      opacity: 1;
+    }
+  }
 
 #clickButton.red {
     background-color: #f44336;
@@ -126,15 +190,15 @@ body {
 
 
 .container {
-    display: flex;
-    /* Utiliser Flexbox */
-    width: 100%;
+   
     /* Prendre toute la largeur de la page */
+    flex: 1;
+    flex-direction: row;
 }
 
-.upgradeStore,
-.statsDisplay {
-    flex: 1;
+.upgradeStore
+ {
+    width: 100%;
     /* Les deux divs vont prendre le même espace */
     margin: 10px;
     /* Marge autour des divs */
@@ -143,3 +207,17 @@ body {
     border: 1px solid #ccc;
     /* Bordure pour les divs (optionnel) */
 }
+
+.statsDisplay {
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+    /* Les deux divs vont prendre le même espace */
+    margin: 10px;
+    /* Marge autour des divs */
+    padding: 20px;
+    /* Rembourrage à l'intérieur des divs */
+    border: 1px solid #ccc;
+    /* Bordure pour les divs (optionnel) */
+}
+
