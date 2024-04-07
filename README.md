@@ -12,6 +12,7 @@ Le but de ce jeu ? Pouvoir y jouer partout, et pourquoi pas le partager avec d'a
 ## Todo List
 - [ ] Système d'améliorations complet (Achats, ventes)
 - [ ] Système de mineurs *(Ajoutant une production automatique)* (Achats, ventes)
+- [ ] Ajout d'achievements
 - [ ] Front end avec une vrai DA
 - la suite arrive bientôt
 
